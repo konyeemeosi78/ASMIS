@@ -1,4 +1,4 @@
-# main.py
+# sqltest.py
 
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
@@ -8,7 +8,7 @@ db = SQLAlchemy()
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://sql6493319:HBs7D4M8eQ@sql6.freesqldatabase.com:3306/sql6493319"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://sql5495299:hz7bDRYNPh@sql5.freesqldatabase.com:3306/sql5495299"
 
 db.init_app(app)
 
@@ -17,7 +17,7 @@ def index():
 
     sql_cmd = """
         select *
-        from sql6493319.users;
+        from sql5495299.testusers;
         """
 
     query_data = db.engine.execute(sql_cmd)
