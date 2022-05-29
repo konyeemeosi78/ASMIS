@@ -16,9 +16,14 @@ flask run
 ```
 
 Running in Windows from the downloaded directory:
+Change to downloaded directory
 ```
 set FLASK_APP=__init__.py
 flask run
+```
+Change to admin directory
+```
+flask run --port=8888
 ```
 Default user password: P@ssw0rd
 
