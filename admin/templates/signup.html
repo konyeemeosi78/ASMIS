@@ -16,92 +16,40 @@
         <form id="SignupForm" method="POST" action="/signup">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
+					<input class="input is-large" type="email" name="email" placeholder="Email" autofocus="" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+					title="Enter a vaild email address">
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" name="name" placeholder="Name" autofocus="">
+                    <input class="input is-large" type="text" name="name" placeholder="Name" required pattern="[a-zA-Z0-9_]{4,}"
+					title="The name can only consist of alphabetical, number and underscore, and at least 4 or more characters">
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Password">
+					<input class="input is-large" type="password" name="password" placeholder="Password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+					title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
                 </div>
             </div>
             <div>
-                <span class="is-size-4">Role:</span>
-                <div class="select is-large">
+                <div class="field">
                     <div class="control">
-                        <select name="role">
-                            <option>ISS</option>
-                            <option>Ground Staff</option>
-                            <option>Government</option>
-                            <option>Admin</option>
-                        </select>
+                        <input type="text" name="role" list="11" placeholder="Role" required pattern="ISS|Ground Staff|Government|Admin"
+						title="Must contain an available role">
+						    <datalist id="11">
+								<option>ISS</option>
+								<option>Ground Staff</option>
+								<option>Government</option>
+								<option>Admin</option>
+							</datalist>
                     </div>
                 </div>
             </div>
-
             <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
         </form>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>
-        <script src="https://formvalidation.io/vendors/formvalidation/dist/js/FormValidation.min.js"></script>
-        <script src="https://formvalidation.io/vendors/formvalidation/dist/js/plugins/Mini.min.js"></script>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function (e) {
-                FormValidation.formValidation(document.getElementById('SignupForm'), {
-                    fields: {
-                        name: {
-                            validators: {
-                                notEmpty: {
-                                    message: 'The name is required',
-                                },
-                                stringLength: {
-                                    min: 6,
-                                    max: 30,
-                                    message: 'The name must be more than 6 and less than 30 characters long',
-                                },
-                                regexp: {
-                                    regexp: /^[a-zA-Z0-9_]+$/,
-                                    message: 'The name can only consist of alphabetical, number and underscore',
-                                },
-                            },
-                        },
-                        password: {
-                            validators: {
-                                notEmpty: {
-                                    message: 'The password is required',
-                                },
-                                stringLength: {
-                                    min: 8,
-                                    max: 30,
-                                    message: 'The password must be more than 6 and less than 30 characters long',
-                                },
-                                regexp: {
-                                    regexp: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-                                    message: 'Minimum eight characters, at least one uppercase letter, one lowercase letter and one number',
-                                },
-                            },
-                        },
-                    },
-                    plugins: {
-                        trigger: new FormValidation.plugins.Trigger(),
-                        bulma: new FormValidation.plugins.Bulma(),
-                        submitButton: new FormValidation.plugins.SubmitButton(),
-                        icon: new FormValidation.plugins.Icon({
-                            valid: 'fa fa-check',
-                            invalid: 'fa fa-times',
-                            validating: 'fa fa-refresh',
-                        }),
-                    },
-                });
-            });
-        </script>
     </div>
 </div>
 {% endblock %}
