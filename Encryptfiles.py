@@ -49,7 +49,6 @@ if __name__ == "__main__":
 
     if generate_key:
         write_key()
-    # load the key
     key = load_key()
 
     encrypt_ = args.encrypt
