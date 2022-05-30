@@ -1,13 +1,6 @@
 # Development Team Project: Coding Output
 
-DB details:
-```
-Host: sql5.freesqldatabase.com:3306
-Database user: sql5495299
-Database name: sql5495299
-Database password: hz7bDRYNPh
-Web console: https://www.phpmyadmin.co/
-```
+# Program
 
 Running in Linux from the downloaded directory:
 ```
@@ -22,13 +15,26 @@ set FLASK_APP=__init__.py
 flask run
 ```
 User management page (Admin role required)
+
 Change to admin directory
 ```
 flask run --port=8888
 ```
 Default user password: P@ssw0rd
 
-Database query
+# Database
+
+DB details:
+```
+Host: sql5.freesqldatabase.com:3306
+Database user: sql5495299
+Database name: sql5495299
+Database password: hz7bDRYNPh
+Web console: https://www.phpmyadmin.co/
+```
+
+Database Query:
+
 Code to recreate the 2 x NASA database tables:
 ```
 CREATE TABLE IF NOT EXISTS people(userID INT(5) UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE, firstName VARCHAR(30), lastName VARCHAR(30), email VARCHAR(64) UNIQUE NOT NULL, phone VARCHAR(11), password VARCHAR(64) NOT NULL, failedAttempts TINYINT(1), lockoutStatus TINYINT(1), role ENUM('ISS', 'Ground Staff', 'Government', 'Admin') NOT NULL, PRIMARY KEY(userID));
