@@ -33,22 +33,22 @@ def login_post():
     # check if user has admin role
     if not user.role == 'Admin':
         flash('Access denied You are not authorized to access this page.')
-        return redirect(url_for('auth.login'))  # Reload page if user not exist or wrong password
+        return redirect(url_for('auth.login'))  # Reload page if user is not admin
 
     # if the above check passes, then we know the user has the right credentials
     login_user(user)
     return redirect(url_for('main.profile'))
 
 
-@auth.route('/signup')
-def signup():
-    """Render Signup page"""
-    return render_template('signup.html')
+@auth.route('/create')
+def create():
+    """Render create page"""
+    return render_template('create.html')
 
 
-@auth.route('/signup', methods=['POST'])
-def signup_post():
-    """User Signup"""
+@auth.route('/create', methods=['POST'])
+def create_post():
+    """Create User"""
     email = request.form.get('email')
     name = request.form.get('name')
     password = request.form.get('password')
@@ -57,9 +57,9 @@ def signup_post():
     user = User.query.filter_by(
         email=email).first()  # if this returns a user, then the email already exists in database
 
-    if user:  # if a user is found, we want to redirect back to signup page so user can try again
+    if user:  # if a user is found, we want to redirect back to create page so user can try again
         flash('Email address already exists')
-        return redirect(url_for('auth.signup'))
+        return redirect(url_for('auth.create'))
 
     # create new user with the form data. Hash the password so plaintext version isn't saved.
     new_user = User(email=email, name=name,
@@ -69,9 +69,36 @@ def signup_post():
     db.session.add(new_user)
     db.session.commit()
 
-    flash('User created')
-    return redirect(url_for('auth.signup'))
+    flash('User Created')
+    return redirect(url_for('auth.create'))
 
+@auth.route('/update')
+def update():
+    """Render update page"""
+    return render_template('update.html')
+
+@auth.route('/update', methods=['POST'])
+def update_post():
+    """Update User"""
+    email = request.form.get('email')
+
+    user = User.query.filter_by(
+        email=email).first()  # if this returns a user, then the email already exists in database
+    if not user:  # if a user is found, we want to redirect back to update page so user can try again
+        flash('Email address not exists')
+        return redirect(url_for('auth.update'))
+
+    user.name = request.form.get('name')
+    password = request.form.get('password')
+    user.password = generate_password_hash(password, method='sha256')
+    user.role = request.form.get('role')
+
+    # update the user to the database
+    db.session.add(user)
+    db.session.commit()
+
+    flash('User Updated')
+    return redirect(url_for('auth.update'))
 
 @auth.route('/logout')
 @login_required
