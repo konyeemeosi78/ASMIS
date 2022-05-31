@@ -49,7 +49,7 @@ Code to recreate the 2 x NASA database tables:
 ```
 CREATE TABLE IF NOT EXISTS user(id INT(5) UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE, email VARCHAR(64) UNIQUE NOT NULL, password VARCHAR(64) NOT NULL, name VARCHAR(30) NOT NULL, role ENUM('ISS', 'Ground Staff', 'Government', 'Admin') NOT NULL, PRIMARY KEY(id));
 
-CREATE TABLE IF NOT EXISTS document_repository(fileID INT(7) UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE, filename VARCHAR(255) NOT NULL, uploaded DATE NOT NULL, classification TINYINT(1) NOT NULL, owner INT(5) UNSIGNED NOT NULL UNIQUE, PRIMARY KEY(fileID), FOREIGN KEY (owner) REFERENCES user(id))
+CREATE TABLE IF NOT EXISTS document_repository(fileID INT(7) UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE, filename VARCHAR(255) NOT NULL UNIQUE, uploaded DATE NOT NULL, classification TINYINT(1) NOT NULL, owner INT(5) UNSIGNED NOT NULL UNIQUE, PRIMARY KEY(fileID), FOREIGN KEY (owner) REFERENCES user(id))
 ```
 ***
 Removed username field due to redundancy as email address can be used.
