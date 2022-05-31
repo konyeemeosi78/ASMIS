@@ -1,5 +1,14 @@
 # Development Team Project: Coding Output
 
+# Prerequisite
+
+The following should be installed already before setup.
+- Python3
+
+Requirements:
+```
+pip install -r requirements.txt
+```
 # Program
 
 Running in Linux from the downloaded directory:
