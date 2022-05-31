@@ -29,6 +29,7 @@ Change to admin directory
 ```
 flask run --port=8888
 ```
+Admin user: admin@test.com
 Default user password: P@ssw0rd
 
 # Database
