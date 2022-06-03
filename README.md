@@ -14,20 +14,20 @@ pip install -r requirements.txt
 Running in Linux from the downloaded directory:
 ```
 export FLASK_APP=__init__.py
-flask run
+flask run --cert=cert.pem --key=key.pem
 ```
 
 Running in Windows from the downloaded directory:
 Change to downloaded directory
 ```
 set FLASK_APP=__init__.py
-flask run
+flask run --cert=cert.pem --key=key.pem
 ```
 User management page (Admin role required)
 
 Change to admin directory
 ```
-flask run --port=8888
+flask run --port=8888 --cert=cert.pem --key=key.pem
 ```
 Admin user: admin@test.com
 Default user password: P@ssw0rd
