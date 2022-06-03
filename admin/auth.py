@@ -24,7 +24,6 @@ def login_post():
     password = request.form.get('password')
 
     user = User.query.filter_by(email=email).first()
-
     # check if user actually exists
     # take the user supplied password, hash it, and compare it to the hashed password in database
     if not user or not check_password_hash(user.password, password):
@@ -63,7 +62,8 @@ def create_post():
 
     # create new user with the form data. Hash the password so plaintext version isn't saved.
     new_user = User(email=email, name=name,
-                    password=generate_password_hash(password, method='sha256'), role=role)
+                    password=generate_password_hash(password, method='sha256', salt_length=8),
+                    role=role)
 
     # add the new user to the database
     db.session.add(new_user)
@@ -72,10 +72,12 @@ def create_post():
     flash('User Created')
     return redirect(url_for('auth.create'))
 
+
 @auth.route('/update')
 def update():
     """Render update page"""
     return render_template('update.html')
+
 
 @auth.route('/update', methods=['POST'])
 def update_post():
@@ -83,14 +85,14 @@ def update_post():
     email = request.form.get('email')
 
     user = User.query.filter_by(
-        email=email).first()  # if this returns a user, then the email already exists in database
-    if not user:  # if a user is found, we want to redirect back to update page so user can try again
+        email=email).first()  # if returns a user, then the email already exists in database
+    if not user:  # if user is found, redirect back to update page so user can try again
         flash('Email address not exists')
         return redirect(url_for('auth.update'))
 
     user.name = request.form.get('name')
     password = request.form.get('password')
-    user.password = generate_password_hash(password, method='sha256')
+    user.password = generate_password_hash(password, method='sha256', salt_length=8)
     user.role = request.form.get('role')
 
     # update the user to the database
@@ -99,6 +101,7 @@ def update_post():
 
     flash('User Updated')
     return redirect(url_for('auth.update'))
+
 
 @auth.route('/logout')
 @login_required
