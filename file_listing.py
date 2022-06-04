@@ -3,7 +3,7 @@
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from .models import DocumentRepository
+from .models import Document
 
 
 app = Flask(__name__)
@@ -29,7 +29,7 @@ db = SQLAlchemy(app)
 
 # db.Model is required - don't change it
 
-# import DocumentRepository class (table) from models.py
+# import Document class (table) from models.py
 
 
 # routes
@@ -38,9 +38,9 @@ db = SQLAlchemy(app)
 def index():
     """display file listing results in a table"""
     try:
-        document_repository = DocumentRepository.query.\
+        document_repository = Document.query.\
             filter_by(classification=1).\
-            order_by(DocumentRepository.filename).all()
+            order_by(Document.filename).all()
         doc_text = '<ul><lh>File Name</lh>'
         for doc in document_repository:
             doc_text += '<li>' + doc.filename + '</li>'
