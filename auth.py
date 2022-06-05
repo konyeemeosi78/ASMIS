@@ -3,12 +3,10 @@ auth.py
 """
 
 from flask import Blueprint, render_template, redirect, url_for, request, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
-from werkzeug.security import check_password_hash
-
 from .models import User
-
-# from . import db
+from . import db
 
 auth = Blueprint('auth', __name__)
 
@@ -24,16 +22,12 @@ def login_post():
     """User login"""
     email = request.form.get('email')
     password = request.form.get('password')
-    otp_token = request.form.get('otp_token')
-    # additional field required
 
     user = User.query.filter_by(email=email).first()
 
     # check if user actually exists
     # take the user supplied password, hash it, and compare it to the hashed password in database
-    # added support for otp check
-    if not user or not check_password_hash(user.password, password) \
-            or not User.verify_totp(otp_token, user.otp_secret):
+    if not user or not check_password_hash(user.password, password):
         flash('Please check your login details and try again.')
         return redirect(url_for('auth.login'))  # Reload page if user not exist or wrong password
         # check if user has admin role
