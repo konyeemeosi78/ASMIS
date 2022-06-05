@@ -10,3 +10,5 @@ werkzeug
 flake8
 pylint
 pytest
+PyQRCode~=1.2.1
+onetimepass~=1.0.1
