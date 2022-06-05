@@ -32,6 +32,14 @@ flask run --port=8888 --cert=cert.pem --key=key.pem
 Admin user: admin@test.com
 Default user password: P@ssw0rd
 
+# Program test
+
+After the program ran
+```
+pytest -vv client.py
+pytest -vv admin.py
+```
+
 # Database
 
 DB details:
@@ -42,6 +50,7 @@ Database name: sql5495299
 Database password: hz7bDRYNPh
 Web console: https://www.phpmyadmin.co/
 ```
+
 
 Database Query:
 
