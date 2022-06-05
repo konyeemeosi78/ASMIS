@@ -38,12 +38,11 @@ db = SQLAlchemy(app)
 def index():
     """display file listing results in a table"""
     try:
-        document_repository = Document.query.\
-            filter_by(classification=1).\
-            order_by(Document.filename).all()
+        document_repository = Document.query.filter_by(role='ISS').\
+        order_by(Document.filename).all()
         doc_text = '<ul><lh>File Name</lh>'
         for doc in document_repository:
-            doc_text += '<li>' + doc.filename + '</li>'
+            doc_text += '<li>' +  str(doc.fileid) + doc.filename + '</li>'
         doc_text += '</ul>'
         return doc_text
     except Exception as exc:
