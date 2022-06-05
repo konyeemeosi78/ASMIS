@@ -39,13 +39,11 @@ def index():
     """display file listing results in a table"""
     try:
         document_repository = Document.query.filter_by(role='ISS').\
-            order_by(Document.filename).all()
-        doc_text = '<table><tr><th>File ID</th>\
-            <th> </th><th>File Name</th></tr>'
+        order_by(Document.filename).all()
+        doc_text = '<ul><lh>File Name</lh>'
         for doc in document_repository:
-            doc_text += '<tr><td>' + str(doc.fileid) + \
-                '</td><td> </td><td>' + doc.filename + '</td></tr>'
-        doc_text += '</table>'
+            doc_text += '<li>' +  str(doc.fileid) + doc.filename + '</li>'
+        doc_text += '</ul>'
         return doc_text
     except Exception as exc:
         # exc holds description of the error
