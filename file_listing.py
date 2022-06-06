@@ -27,22 +27,18 @@ db.init_app(app)
 
 db = SQLAlchemy(app)
 
-# db.Model is required - don't change it
-
-# import Document class (table) from models.py
-
-
 # routes
+
 
 @app.route('/')
 def index():
     """display file listing results in a table"""
     try:
         document_repository = Document.query.filter_by(role='ISS').\
-        order_by(Document.filename).all()
+            order_by(Document.filename).all()
         doc_text = '<ul><lh>File Name</lh>'
         for doc in document_repository:
-            doc_text += '<li>' +  str(doc.fileid) + doc.filename + '</li>'
+            doc_text += '<li>' + str(doc.fileid) + doc.filename + '</li>'
         doc_text += '</ul>'
         return doc_text
     except Exception as exc:
@@ -53,4 +49,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
