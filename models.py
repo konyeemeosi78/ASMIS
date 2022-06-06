@@ -21,3 +21,4 @@ class Document(db.Model):
     filename = db.Column(db.String(50))
     data = db.Column(db.LargeBinary)
     role = db.Column(db.String(100))
+    key = db.Column(db.String(100))
