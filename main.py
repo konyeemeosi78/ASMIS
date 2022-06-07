@@ -1,9 +1,13 @@
 """
 main.py
 """
+import os
+from logging import basicConfig, INFO, DEBUG
 
-from flask import Blueprint, render_template, request, send_file, flash
+from flask import Blueprint, render_template, request, send_file, flash, app, Flask
 from flask_login import login_required, current_user
+from werkzeug.utils import secure_filename
+
 from .models import Document
 from . import db
 from io import BytesIO
@@ -54,6 +58,8 @@ def upload_post():
     #Confirmation page of file uploaded
 
 
+
+
 @main.route('/download')
 @login_required
 def download():
@@ -72,3 +78,5 @@ def download_post():
     decrypted_data = cipher_suite.decrypt(file.data)
     return send_file(BytesIO(decrypted_data), attachment_filename=file.filename, as_attachment=True)
     #Decryption of file in downloading
+
+
